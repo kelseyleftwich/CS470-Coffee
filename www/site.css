@@ -77,6 +77,10 @@ th {
 	float: right;
 }
 
+.textfields input {
+	width: 99%;
+}
+
 td {
 	border-bottom: 1px dotted #ada2aa;
 }
