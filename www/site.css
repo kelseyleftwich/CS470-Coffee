@@ -51,8 +51,15 @@ table {
 	padding: 0 15px 15px 15px;
 }
 
-table a, table a:visited, table a:hover {
+table a, table a:visited {
+	display: block;
 	color: #2a1710;
+	background: none;
+}
+
+table a:hover {
+	display: block;
+	color: #bf2e1a;
 	background: none;
 }
 
