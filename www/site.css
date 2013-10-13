@@ -26,6 +26,10 @@ header nav {
 	font: normal 70% arial, sans-serif;
 }
 
+#nav2 {
+	right: 115px;;
+}
+
 nav a {
 	display: block;
 	padding: 1px 0;
@@ -86,6 +90,10 @@ th {
 
 .textfields input {
 	width: 99%;
+}
+
+.textfields select {
+	width: 101%;
 }
 
 td {
