@@ -14,7 +14,6 @@ header {
 	height: 81px;
 	margin: 0 auto 5px auto;
 	position: relative;
-	color: #f5f1ce;
 }
 
 header nav {
@@ -23,17 +22,30 @@ header nav {
 	bottom: 0;
 	right: 0;
 	text-transform: uppercase;
+	
 	font: normal 70% arial, sans-serif;
 }
 
 #nav2 {
-	right: 115px;;
+	right: 115px;
+}
+
+#nav3 {
+	right: 230px;
+}
+
+#nav4 {
+	right: 345px;
+}
+
+nav * {
+	padding: 1px 0;
+	margin: 2px 0;
 }
 
 nav a {
 	display: block;
-	padding: 1px 0;
-	margin: 2px 0;
+	/*text-decoration: none;*/
 }
 
 a, a:visited {
@@ -98,6 +110,7 @@ th {
 
 td {
 	border-bottom: 1px dotted #ada2aa;
+	/*background-color: #fff;*/
 }
 
 .top_label {

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Coffee Stock</title>
+		<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="site.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href="">customers</a>
+				<a href="">log-out</a>
+			</nav>
+			<nav id="nav2">
+				<a href="">active orders</a>
+				<p>past orders</p>
+			</nav>
+			<nav id="nav3">
+				<a href="">nations</a>
+				<a href="">regions</a>
+			</nav>
+			<nav id="nav4">
+				<a href="">inventory</a>
+				<a href="">warehouses</a>
+			</nav>
+		</header>
+		<div id="body">
+			<!-- replace with prevOrdersView script -->
+			<form class="textfields">
+				<table>
+					<tr>
+						<th class="top_label" colspan="4">Shipped Orders</th>
+					</tr>
+					<tr class="tbl_label">
+						<th>order id</th>
+						<th>customer</th>
+						<th>purchase date</th>
+						<th>total price</th>
+					</tr>
+					<tr>
+						<td><a href="">335678</a></td>
+						<td><a href="">coffeelover@java.com</a></td>
+						<td>2013-04-13</td>
+						<td>$495.00</td>
+					</tr>
+					<tr>
+						<td><a href="">335679</a></td>
+						<td><a href="">tom@rent-a-swag.com</a></td>
+						<td>2013-04-15</td>
+						<td>$375.00</td>
+					</tr>
+					<tr>
+						<td><a href="">335680</a></td>
+						<td><a href="">susan@caffeine.org</a></td>
+						<td>2013-04-19</td>
+						<td>$525.00</td>
+					</tr>
+					<tr>
+						<td><a href="">335681</a></td>
+						<td><a href="">perry@niceday.com</a></td>
+						<td>2013-05-06</td>
+						<td>$155.00</td>
+					</tr>
+					<tr>
+						<td><a href="">335682</a></td>
+						<td><a href="">coffeelover@java.com</a></td>
+						<td>2013-05-09</td>
+						<td>$545.00</td>
+					</tr>
+					<tr>
+						<th class="top_label" colspan="4">Search</th>
+					</tr>
+					<tr class="tbl_label">
+						<th>order id</th>
+						<th>customer</th>
+						<th>purchase date</th>
+						<th>total price</th>
+					</tr>
+					<tr>
+						<td><input type="text" name="order_id"></td>
+						<td><input type="text" name="customer"></td>
+						<td><input type="text" name="purchase_date"></td>
+						<td><input type="text" name="total_price"></td>
+						
+					</tr>
+				</table>
+				<div id="submit">
+					<div id="submitWrapper">
+						<input type="submit" value="search">
+					</div>
+				</div>
+			</form>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>
