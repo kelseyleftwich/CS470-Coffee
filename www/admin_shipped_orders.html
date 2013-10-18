@@ -9,24 +9,24 @@
 	<body>
 		<header>
 			<nav>
-				<a href="">customers</a>
-				<a href="">log-out</a>
-			</nav>
-			<nav id="nav2">
-				<a href="">active orders</a>
-				<p>past orders</p>
-			</nav>
-			<nav id="nav3">
-				<a href="">nations</a>
-				<a href="">regions</a>
-			</nav>
-			<nav id="nav4">
-				<a href="">inventory</a>
-				<a href="">warehouses</a>
+				<table>
+					<tr>
+						<td><a href="">inventory</a></td>
+						<td><a href="">nations</a></td>
+						<td><a href="">active orders</a></td>
+						<td><a href="">customers</a></td>
+					</tr>
+					<tr>
+						<td><a href="">warehouses</a></td>
+						<td><a href="">regions</a></td>
+						<td class="currentLink"><a href="">shipped orders</a></td>
+						<td><a href="">log-out</a></td>
+					</tr>
+				</table>
 			</nav>
 		</header>
 		<div id="body">
-			<!-- replace with prevOrdersView script -->
+			<!-- replace with shippedOrdersView script -->
 			<form class="textfields">
 				<table>
 					<tr>
@@ -43,30 +43,35 @@
 						<td><a href="">coffeelover@java.com</a></td>
 						<td>2013-04-13</td>
 						<td>$495.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335679</a></td>
 						<td><a href="">tom@rent-a-swag.com</a></td>
 						<td>2013-04-15</td>
 						<td>$375.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335680</a></td>
 						<td><a href="">susan@caffeine.org</a></td>
 						<td>2013-04-19</td>
 						<td>$525.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335681</a></td>
 						<td><a href="">perry@niceday.com</a></td>
 						<td>2013-05-06</td>
 						<td>$155.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335682</a></td>
 						<td><a href="">coffeelover@java.com</a></td>
 						<td>2013-05-09</td>
 						<td>$545.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<th class="top_label" colspan="4">Search</th>

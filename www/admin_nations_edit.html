@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Coffee Stock -- Nations</title>
+		<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="site.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<header>
+			<nav>
+				<table>
+					<tr>
+						<td><a href="">inventory</a></td>
+						<td><a href="">nations</a></td>
+						<td><a href="">active orders</a></td>
+						<td><a href="">customers</a></td>
+					</tr>
+					<tr>
+						<td><a href="">warehouses</a></td>
+						<td><a href="">regions</a></td>
+						<td><a href="">shipped orders</a></td>
+						<td><a href="">log-out</a></td>
+					</tr>
+				</table>
+			</nav>
+		</header>
+		<div id="body">
+			<!-- replace with adminNationEdit script -->
+			<form class="textfields">
+				<table>
+					<tr>
+						<th class="top_label" colspan="3">Edit Nation</th>
+					</tr>
+					<tr class="tbl_label">
+						<th>id</th>
+						<th>name</th>
+						<th>region</th>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td><input type="text" name="name" value="Mexico"></td>
+						<td>
+							<select name="region">
+								<option value="Africa">Africa</option>
+								<option value="Americas" selected>Americas</option>
+								<option value="Asia">Asia</option>
+								<option value="Pacific">Pacific</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<div id="submit">
+					<div id="submitWrapper">
+						<input type="submit" value="apply changes">
+					</div>
+				</div>
+			</form>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>

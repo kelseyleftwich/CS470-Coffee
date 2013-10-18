@@ -17,25 +17,40 @@ header {
 }
 
 header nav {
-	width: 115px;
+	/* width: 500px; */
 	position: absolute;
 	bottom: 0;
-	right: 0;
+	right: -2px;
 	text-transform: uppercase;
-	
 	font: normal 70% arial, sans-serif;
 }
 
-#nav2 {
-	right: 115px;
+nav table {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #705705;
 }
 
-#nav3 {
-	right: 230px;
+nav table tr {
+	margin: 0;
+	padding: 0;
 }
 
-#nav4 {
-	right: 345px;
+nav table tr td {
+	margin: 0;
+	padding: 0;
+	width: 125px;
+	background-color: #2A1710;
+	border: none;
+}
+
+.currentLink {
+	background-color: #BF2E1A;
+}
+
+.currentLink a, .currentLink a:visited {
+	text-decoration: none;
 }
 
 nav * {
@@ -45,11 +60,20 @@ nav * {
 
 nav a {
 	display: block;
-	/*text-decoration: none;*/
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 a, a:visited {
 	color: #f5f1ce;
+}
+
+nav table tr td a, nav table tr td a:visited {
+	color: #F5F1CE;
+}
+
+nav table tr td:hover {
+	background-color: #BF2E1A;
 }
 
 #cart {
@@ -85,14 +109,13 @@ th {
 	font: normal 70% arial, sans-serif;
 }
 
-.checkbox {
-	width: 100px;
+.checkbox, .edit {
 	text-transform: uppercase;
 	font: normal 70% arial, sans-serif;
 }
 
-.checkbox * {
-	
+.checkbox  {
+	width: 100px;
 }
 
 .checkbox input {
@@ -100,8 +123,12 @@ th {
 	float: right;
 }
 
+.edit {
+	width: 25px;
+}
+
 .textfields input {
-	width: 99%;
+	width: 100%;
 }
 
 .textfields select {

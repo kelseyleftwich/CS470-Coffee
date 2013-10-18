@@ -9,28 +9,28 @@
 	<body>
 		<header>
 			<nav>
-				<a href="">customers</a>
-				<a href="">log-out</a>
-			</nav>
-			<nav id="nav2">
-				<p>active orders</p>
-				<a href="">past orders</a>
-			</nav>
-			<nav id="nav3">
-				<a href="">nations</a>
-				<a href="">regions</a>
-			</nav>
-			<nav id="nav4">
-				<a href="">inventory</a>
-				<a href="">warehouses</a>
+				<table>
+					<tr>
+						<td><a href="">inventory</a></td>
+						<td><a href="">nations</a></td>
+						<td class="currentLink"><a href="">active orders</a></td>
+						<td><a href="">customers</a></td>
+					</tr>
+					<tr>
+						<td><a href="">warehouses</a></td>
+						<td><a href="">regions</a></td>
+						<td><a href="">shipped orders</a></td>
+						<td><a href="">log-out</a></td>
+					</tr>
+				</table>
 			</nav>
 		</header>
 		<div id="body">
-			<!-- replace with prevOrdersView script -->
+			<!-- replace with activeOrdersView script -->
 			<form class="textfields">
 				<table>
 					<tr>
-						<th class="top_label" colspan="4">Current Orders</th>
+						<th class="top_label" colspan="4">Active Orders</th>
 					</tr>
 					<tr class="tbl_label">
 						<th>order id</th>
@@ -43,24 +43,28 @@
 						<td><a href="">coffeelover@java.com</a></td>
 						<td>2013-05-09</td>
 						<td>$465.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335684</a></td>
 						<td><a href="">tom@rent-a-swag.com</a></td>
 						<td>2013-05-09</td>
 						<td>$325.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335685</a></td>
 						<td><a href="">susan@caffeine.org</a></td>
 						<td>2013-05-10</td>
 						<td>$425.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335686</a></td>
 						<td><a href="">perry@niceday.com</a></td>
 						<td>2013-05-10</td>
 						<td>$185.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<th class="top_label" colspan="4">Pending Orders</th>
@@ -76,12 +80,14 @@
 						<td><a href="">barry@espresso.net</a></td>
 						<td>2013-05-12</td>
 						<td>$225.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<td><a href="">335688</a></td>
 						<td><a href="">radler@stiegl.de</a></td>
 						<td>2013-05-12</td>
 						<td>$295.00</td>
+						<td class="edit"><a href="">edit</a></td>
 					</tr>
 					<tr>
 						<th class="top_label" colspan="4">Search</th>
