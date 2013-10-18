@@ -67,7 +67,7 @@ a, a:visited {
 	color: #f5f1ce;
 }
 
-nav table tr td a, nav table tr td a:visited {
+nav table tr td a, nav table tr td a:visited, nav table tr td a:hover {
 	color: #F5F1CE;
 }
 
@@ -97,7 +97,6 @@ table a, table a:visited {
 }
 
 table a:hover {
-	display: block;
 	color: #bf2e1a;
 	background: none;
 }
