@@ -17,7 +17,6 @@ header {
 }
 
 header nav {
-	/* width: 500px; */
 	position: absolute;
 	bottom: 0;
 	right: -2px;
@@ -109,6 +108,14 @@ th {
 	font: normal 70% arial, sans-serif;
 }
 
+.textfields input {
+	width: 100%;
+}
+
+.textfields select {
+	width: 101%;
+}
+
 .checkbox, .edit {
 	text-transform: uppercase;
 	font: normal 70% arial, sans-serif;
@@ -119,20 +126,13 @@ th {
 }
 
 .checkbox input {
+	width: auto;
 	margin: 0 0 0 3px;
 	float: right;
 }
 
 .edit {
 	width: 25px;
-}
-
-.textfields input {
-	width: 100%;
-}
-
-.textfields select {
-	width: 101%;
 }
 
 td {

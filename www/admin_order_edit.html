@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Coffee Stock -- Active Orders</title>
+		<link href="img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="site.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<header>
+			<nav>
+				<table>
+					<tr>
+						<td><a href="">inventory</a></td>
+						<td><a href="">nations</a></td>
+						<td><a href="">active orders</a></td>
+						<td><a href="">customers</a></td>
+					</tr>
+					<tr>
+						<td><a href="">warehouses</a></td>
+						<td><a href="">regions</a></td>
+						<td><a href="">shipped orders</a></td>
+						<td><a href="">log-out</a></td>
+					</tr>
+				</table>
+			</nav>
+		</header>
+		<div id="body">
+			<!-- replace with activeOrdersView script -->
+			<form class="textfields">
+				<table>
+				<tr>
+					<th class="top_label" colspan="3">Order 336452</th>
+				</tr>
+				<tr class="tbl_label">
+					<th>purchase date</th>
+					<th>total price</th>
+					<th>status</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="date" value="2013-010-06"></td>
+					<td>$545.00</td>
+					<td>
+						<select>
+							<option value="Pending">Pending</option>
+							<option value="Processing" selected>Processing</option>
+							<option value="Shipped">Shipped</option>
+						</select>
+					</td>
+
+				</tr>
+				<tr>
+					<th class="top_label" colspan="6">Items</th>
+				</tr>
+				<tr class="tbl_label">
+					<th>sku</th>
+					<th>coffee</th>
+					<th>nation</th>
+					<th>weight</th>
+					<th>expiration</th>
+					<th>price</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="sku" value="44922022054"></td>
+					<td><input type="text" name="coffee" value="Limu"></td>
+					<td>
+						<select name="nation">
+							<option value="Ethiopia" selected>Ethiopia</option>
+						</select>
+					<td><input type="text" name="weight" value="35"></td>
+					<td><input type="text" name="expiration" value="2015-02-30"></td>
+					<td><input type="text" name="price_44922022054" value="295.00"></td>
+					<td class="checkbox">
+						<label>&nbsp;&nbsp;&nbsp;remove item: </label><input type="checkbox" name="SKU" value="SKU">
+					</td>
+				</tr>
+				<tr>
+					<td><input type="text" name="sku" value="44922022054"></td>
+					<td><input type="text" name="coffee" value="Cap De Tres Rios"></td>
+					<td>
+						<select name="nation">
+							<option value="Costa Rica" selected>Costa Rica</option>
+						</select>
+					</td>
+					<td><input type="text" name="weight" value="15"></td>
+					<td><input type="text" name="expiration" value="2015-03-30"></td>
+					<td><input type="text" name="price_48927022082" value="115.00"></td>
+					<td class="checkbox">
+						<label>&nbsp;&nbsp;&nbsp;remove item: </label><input type="checkbox" name="SKU" value="SKU">
+					</td>
+				</tr>
+				<tr>
+					<td><input type="text" name="sku" value="48927022082"></td>
+					<td><input type="text" name="coffee" value="Java Natural"></td>
+					<td>
+						<select name="nation">
+							<option value="Indonesia" selected>Indonesia</option>
+						</select>
+					</td>
+					<td><input type="text" name="weight" value="15"></td>
+					<td><input type="text" name="expiration" value="2015-01-30"></td>
+					<td><input type="text" name="price_48927022082" value="135.00"></td>
+					<td class="checkbox">
+						<label>&nbsp;&nbsp;&nbsp;remove item: </label><input type="checkbox" name="SKU" value="SKU">
+					</td>
+				</tr>
+			</table>
+				<div id="submit">
+					<div id="submitWrapper">
+						<input type="submit" value="apply changes">
+					</div>
+				</div>
+			</form>
+		</div>
+		<footer>
+		</footer>
+	</body>
+</html>
