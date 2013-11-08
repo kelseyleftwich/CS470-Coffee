@@ -54,33 +54,25 @@
 					<th>expiration</th>
 					<th>price</th>
 				</tr>
-				<tr>
-					<td>Limu</td>
-					<td>Ethiopia</td>
-					<td>25 LB</td>
-					<td>2014-10-30</td>
-					<td>$125.00</td>
-				</tr>
-				<tr>
-					<td>Sidamo</td>
-					<td>Ethiopia</td>
-					<td>45 LB</td>
-					<td>2015-02-30</td>
-					<td>$245.00</td>
-				</tr>
+				<?php
+                // 3. Use returned data (if any)
+                while($row = mysqli_fetch_assoc($result)){
+                    //output data from each row
+                    echo "<tr>";
+                    echo "<td>" . $row["Name"] . "</td>";
+                    echo "<td>" . $row["Origin"] . "</td>";
+                    echo "<td>" . $row["Weight"] . " lb" . "</td>";
+                    echo "<td>" . $row["ExpDate"] . "</td>";
+                    echo "<td>" . "$" . $row["Price"] . " per lb" . "</td>";
+                    echo"</tr>";
+                }
+                
+                ?>
             </table>
         </div>
     </div>
         
-        <?php
-        // 3. Use returned data (if any)
-        while($row = mysqli_fetch_row($result)){
-            //output data from each row
-            var_dump($row);
-            echo"<hr />";
-        }
-        
-        ?>        
+                
     </body>
 </html>
 <?php
