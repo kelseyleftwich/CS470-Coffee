@@ -1,0 +1,184 @@
+body {
+	background-color: #705705;
+	color: #2a1710;
+	font-family: georgia, serif;
+}
+
+#body {
+	margin-bottom: 75px;
+}
+
+header {
+	background: url('img/title.png') no-repeat left;
+	width: 80%;
+	height: 81px;
+	margin: 0 auto 5px auto;
+	position: relative;
+}
+
+header nav {
+	position: absolute;
+	bottom: 0;
+	right: -2px;
+	text-transform: uppercase;
+	font: normal 70% arial, sans-serif;
+}
+
+nav table {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #705705;
+}
+
+nav table tr {
+	margin: 0;
+	padding: 0;
+}
+
+nav table tr td {
+	margin: 0;
+	padding: 0;
+	width: 125px;
+	background-color: #2A1710;
+	border: none;
+}
+
+.currentLink {
+	background-color: #BF2E1A;
+}
+
+.currentLink a, .currentLink a:visited {
+	text-decoration: none;
+}
+
+nav * {
+	padding: 1px 0;
+	margin: 2px 0;
+}
+
+nav a {
+	display: block;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+a, a:visited {
+	color: #f5f1ce;
+}
+
+nav table tr td a, nav table tr td a:visited, nav table tr td a:hover {
+	color: #F5F1CE;
+}
+
+nav table tr td:hover {
+	background-color: #BF2E1A;
+}
+
+#cart {
+	background: url('img/basket-icon.png') no-repeat right;
+}
+
+a:hover, #cart:hover {
+	background-color: #bf2e1a; 
+}
+
+table {
+	width: 80%;
+	margin: 0 auto;
+	background-color: #f5f1ce;
+	padding: 0 15px 15px 15px;
+}
+
+table a, table a:visited {
+	display: block;
+	color: #2a1710;
+	background: none;
+}
+
+table a:hover {
+	color: #bf2e1a;
+	background: none;
+}
+
+th {
+	text-align: left;
+	text-transform: uppercase;
+	font: normal 70% arial, sans-serif;
+}
+
+.textfields input {
+	width: 100%;
+}
+
+.textfields select {
+	width: 101%;
+}
+
+.checkbox, .edit {
+	text-transform: uppercase;
+	font: normal 70% arial, sans-serif;
+}
+
+.checkbox  {
+	width: 100px;
+}
+
+.checkbox input {
+	width: auto;
+	margin: 0 0 0 3px;
+	float: right;
+}
+
+.edit {
+	width: 25px;
+}
+
+td {
+	border-bottom: 1px dotted #ada2aa;
+	/*background-color: #fff;*/
+}
+
+.top_label {
+	text-transform: capitalize;
+	font-size: 80%;
+	font-weight: bold;
+	font-style: italic;
+	padding-top: 25px;
+}
+
+.tbl_label {
+	color: #f5f1ce;
+	background-color: #bf2e1a;
+}
+.tbl_label th {
+	padding: 1px 3px;
+}
+
+#submit {
+	width: 80%;
+	margin: 15px auto 0 auto;
+}
+
+#submitWrapper {
+	float: right;
+}
+
+#submit input {
+	display: block;
+	width: 115px;
+	height: 41px;
+	background: url('img/add-to-cart-btn.png') no-repeat center;
+	color: #2a1710;
+	text-transform: uppercase;
+	font-weight: bold;
+	font: normal 70% arial, sans-serif;
+	border: none;
+	margin: 0 0 10px 0;
+}
+
+#submit input:hover {
+	color: #f5f1ce;
+	background: url('img/add-to-cart-btn-down.png') no-repeat center;
+	cursor: pointer;
+}
