@@ -18,7 +18,7 @@
 			}
 			$sku = $_POST['sku'];
 			$name = $_POST['name'];
-			$nation = $_POST['nation'];
+			$country = $_POST['country'];
 			$weight = $_POST['weight'];
 			$expiration = $_POST['expiration'];
 			$warehouse = $_POST['warehouse'];
@@ -26,23 +26,22 @@
 			
 			// add to database if all fields have a value
 			if (!$invalid) {
-				$newCoffeeQuery = "INSERT INTO Coffee (Sku, Name, Country, Weight, Expiration, Warehouse, Price) " .
-					"(VALUES ('$sku','$name', '$nation', '$weight', '$expiration', '$warehouse', '$price')";
+				$newCoffeeQuery = "INSERT INTO Coffee (SKU, Name, Country, Weight, ExpDate, Warehouse, Price) " .
+					"(VALUES ('$sku','$name', '$country', '$weight', '$expiration', '$warehouse', '$price')";
 				$newCoffee = mysqli_query($connection, $newCoffeeQuery) or die("Database query failed.");
 			}
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$coffeeQuery = "SELECT Coffee.Sku, Coffee.Name, Region.Name, Nation.Name, Coffee.Weight, Coffee.Expiration, Warehouse.City, Coffee.Price " . 
+		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name, Country.Region, Country.Name, Coffee.Weight, Coffee.ExpDate, Warehouse.City, Coffee.Price " . 
 			"FROM Coffee " . 
-			"INNER JOIN Nation ON Coffee.Nation = Nation.ID " .
-			"INNER JOIN Region ON Nation.Region = Region.ID " .
+			"INNER JOIN Country ON Coffee.Country = Country.Name " .
 			"INNER JOIN Warehouse ON Coffee.Warehouse = Warehouse.ID " .
-			"GROUP BY Region.Name ORDER BY Coffee.Name ASC";
+			"GROUP BY Country.Region ORDER BY Coffee.Name ASC";
 		$coffees = mysqli_query($connection, $coffeeQuery) or die("Database query failed.");
 		
-		$nationQuery = "SELECT ID, Name FROM Nation ORDER BY Name ASC";
-		$nations = mysqli_query($connection, $nationQuery) or die("Database query failed.");
+		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
+		$countries = mysqli_query($connection, $nationQuery) or die("Database query failed.");
 		
 		$warehouseQuery = "SELECT ID, City From Warehouse ORDER BY City ASC";
 		$warehouses = mysqli_query($connection, $warehouseQuery) or die("Database query failed.");
@@ -59,22 +58,22 @@
 					<?php
 						$region = "";
 						while ($row = mysqli_fetch_assoc($coffees)) {
-							$nextRegion = $row['Region.Name'];
+							$nextRegion = $row['Country.Region'];
 							if ($nextRegion != $region) {
 								echo '<tr>';
-								echo '	<th class="top_label" colspan="5">' . $row['Region.Name'] . '</th>';
+								echo '	<th class="top_label" colspan="5">' . $row['Country.Region'] . '</th>';
 								echo '</tr>';
 								include('php-modules/admin-inventory-header.php');
 							}
 							echo '<tr>';
-							echo '	<td>' . $row['Coffee.Sku'] . '</td>';
+							echo '	<td>' . $row['Coffee.SKU'] . '</td>';
 							echo '	<td>' . $row['Coffee.Name'] . '</td>';
 							echo '	<td>' . $row['Nation.Name'] . '</td>';
 							echo '	<td>' . $row['Coffee.Weight'] . '</td>';
-							echo '	<td>' . $row['Coffee.Expiration'] . '</td>';
+							echo '	<td>' . $row['Coffee.ExpDate'] . '</td>';
 							echo '	<td>' . $row['Warehouse.City'] . '</td>';
 							echo '	<td>' . $row['Coffee.Price'] . '</td>';
-							echo '	<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['Coffee.Sku'] . '">edit</a></td>';
+							echo '	<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['Coffee.SKU'] . '">edit</a></td>';
 							echo '</tr>';
 						}
 					?>
@@ -90,10 +89,10 @@
 						<td><input type="text" name="sku" value="<?php if ($invalid && !empty($sku)) echo $sku; ?>"></td>
 						<td><input type="text" name="name" value="<?php if ($invalid && !empty($name)) echo $name; ?>"></td>
 						<td>
-							<select name="nation">
+							<select name="country">
 								<?php
-									while ($row = mysqli_fetch_assoc($nations)) {
-										echo '<option value="' . $row['ID'] . '"' . ($invalid && !empty($nation) && $nation == $row['ID']) ? ' selected' : '' . 
+									while ($row = mysqli_fetch_assoc($countries)) {
+										echo '<option value="' . $row['Name'] . '"' . ($invalid && !empty($country) && $country == $row['Name']) ? ' selected' : '' . 
 											'>' . $row['Name'] . '</option>';
 									}	
 								?>
@@ -132,7 +131,7 @@
 	<?php
 		// clean-up
 		mysqli_free_result($coffees);
-		mysqli_free_result($nations);
+		mysqli_free_result($countries);
 		mysqli_free_result($warehouses);
 		if (isset($newCoffee)) {
 			mysqli_free_result($newCoffee);
