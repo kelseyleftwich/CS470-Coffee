@@ -22,17 +22,17 @@
 			// add to database if all fields have a value
 			if (!$invalid) {
 				$newCountryQuery = "INSERT INTO Country (Name, Region) " .
-					"(VALUES ('$name', '$region')";
-				$newCountry = mysqli_query($connection, $newCountryQuery) or die("Database query failed.");
+					"VALUES ('$name', '$region')";
+				$newCountry = mysqli_query($connection, $newCountryQuery) or die("Database query failed (POST).");
 			}
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$countryQuery = "SELECT Name, Region FROM Country GROUP BY Region ORDER BY Name ASC";
-		$countries = mysqli_query($connection, $countryQuery) or die("Database query failed.");
+		$countryQuery = "SELECT Name, Region FROM Country ORDER BY Region, Name ASC";
+		$countries = mysqli_query($connection, $countryQuery) or die("Database query failed (STD1).");
 		
 		$regionQuery = "SELECT Name FROM Region ORDER BY Name ASC";
-		$regions = mysqli_query($connection, $regionQuery) or die("Database query failed.");
+		$regions = mysqli_query($connection, $regionQuery) or die("Database query failed (STD2).");
 	?>
 	
 	<body>
@@ -46,16 +46,17 @@
 					<?php
 						$region = "";
 						while ($row = mysqli_fetch_assoc($countries)) {
-							$nextRegion = $row['Country.Region'];
-							if ($nextRegion != $region) {
+							$nextRegion = $row['Region'];
+							if ($region != $nextRegion) {
 								echo '<tr>';
-								echo '	<th class="top_label" colspan="3">' . $row['Country.Region'] . '</th>';
+								echo '	<th class="top_label" colspan="3">' . $row['Region'] . '</th>';
 								echo '</tr>';
 								include('php-modules/admin-country-header.php');
+								$region = $nextRegion;
 							}
 							echo '<tr>';
-							echo '	<td colspan="2">' . $row['Nation.Name'] . '</td>';
-							echo '	<td class="edit"><a href="admin-country-edit.php?name=' . $row['Nation.Name'] . '">edit</a></td>';
+							echo '	<td colspan="2">' . $row['Name'] . '</td>';
+							echo '	<td class="edit"><a href="admin-country-edit.php?name=' . $row['Name'] . '">edit</a></td>';
 							echo '</tr>';
 						}
 					?>
@@ -73,8 +74,9 @@
 							<select name="region">
 								<?php
 									while ($row = mysqli_fetch_assoc($regions)) {
-										echo '<option value="' . $row['Name'] . '"' . ($invalid && !empty($region) && $region == $row['Name']) ? ' selected' : '' . 
-											'>' . $row['Name'] . '</option>';
+										echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
+										/* echo '<option value="' . $row['Name'] . '"' . ($invalid && !empty($region) && $region == $row['Name']) ? ' selected' : '' . 
+											'>' . $row['Name'] . '</option>'; */
 									}	
 								?>
 							</select>
@@ -89,7 +91,7 @@
 				</table>
 				<div id="submit">
 					<div id="submitWrapper">
-						<input type="submit" value="add nation">
+						<input type="submit" value="add nation" name="submit">
 					</div>
 				</div>
 			</form>
@@ -99,9 +101,6 @@
 	<?php
 		// clean-up
 		mysqli_free_result($countries);
-		if (isset($newCountry)) {
-			mysqli_free_result($newCountry);
-		}
 		require_once('php-modules/db-close.php');
 	?>
 </html>

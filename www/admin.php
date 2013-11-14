@@ -27,17 +27,17 @@
 			// add to database if all fields have a value
 			if (!$invalid) {
 				$newCoffeeQuery = "INSERT INTO Coffee (SKU, Name, Country, Weight, ExpDate, Warehouse, Price) " .
-					"(VALUES ('$sku','$name', '$country', '$weight', '$expiration', '$warehouse', '$price')";
+					"VALUES ('$sku','$name', '$country', '$weight', '$expiration', '$warehouse', '$price')";
 				$newCoffee = mysqli_query($connection, $newCoffeeQuery) or die("Database query failed.");
 			}
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name, Country.Region, Country.Name, Coffee.Weight, Coffee.ExpDate, Warehouse.City, Coffee.Price " . 
+		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name, Country.Region, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Warehouse.City, Coffee.Price " . 
 			"FROM Coffee " . 
 			"INNER JOIN Country ON Coffee.Country = Country.Name " .
 			"INNER JOIN Warehouse ON Coffee.Warehouse = Warehouse.ID " .
-			"GROUP BY Country.Region ORDER BY Coffee.Name ASC";
+			"ORDER BY Country.Region, Coffee.Name ASC";
 		$coffees = mysqli_query($connection, $coffeeQuery) or die("Database query failed.");
 		
 		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
@@ -59,11 +59,12 @@
 						$region = "";
 						while ($row = mysqli_fetch_assoc($coffees)) {
 							$nextRegion = $row['Country.Region'];
-							if ($nextRegion != $region) {
+							if ($region != $nextRegion) {
 								echo '<tr>';
 								echo '	<th class="top_label" colspan="5">' . $row['Country.Region'] . '</th>';
 								echo '</tr>';
 								include('php-modules/admin-inventory-header.php');
+								$region = $nextRegion;
 							}
 							echo '<tr>';
 							echo '	<td>' . $row['Coffee.SKU'] . '</td>';
@@ -92,8 +93,9 @@
 							<select name="country">
 								<?php
 									while ($row = mysqli_fetch_assoc($countries)) {
-										echo '<option value="' . $row['Name'] . '"' . ($invalid && !empty($country) && $country == $row['Name']) ? ' selected' : '' . 
-											'>' . $row['Name'] . '</option>';
+										echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
+										/* echo '<option value="' . $row['Name'] . '"' . ($invalid && !empty($country) && $country == $row['Name']) ? ' selected' : '' . 
+											'>' . $row['Name'] . '</option>'; */
 									}	
 								?>
 							</select>
@@ -104,8 +106,9 @@
 							<select name="warehouse">
 								<?php
 									while ($row = mysqli_fetch_assoc($warehouses)) {
-										echo '<option value="' . $row['ID'] . '"' . ($invalid && !empty($warehouse) && $warehouse == $row['ID']) ? 'selected' : '' . 
-											'>' . $row['City'] . '</option>';
+										echo '<option value="' . $row['ID'] . '">' . $row['City'] . '</option>';
+										/* echo '<option value="' . $row['ID'] . '"' . ($invalid && !empty($warehouse) && $warehouse == $row['ID']) ? 'selected' : '' . 
+											'>' . $row['City'] . '</option>'; */
 									}
 								?>
 							</select>
@@ -133,9 +136,6 @@
 		mysqli_free_result($coffees);
 		mysqli_free_result($countries);
 		mysqli_free_result($warehouses);
-		if (isset($newCoffee)) {
-			mysqli_free_result($newCoffee);
-		}
 		require_once('php-modules/db-close.php');
 	?>
 </html>
