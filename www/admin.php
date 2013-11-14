@@ -41,7 +41,7 @@
 		$coffees = mysqli_query($connection, $coffeeQuery) or die("Database query failed.");
 		
 		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
-		$countries = mysqli_query($connection, $nationQuery) or die("Database query failed.");
+		$countries = mysqli_query($connection, $countryQuery) or die("Database query failed.");
 		
 		$warehouseQuery = "SELECT ID, City From Warehouse ORDER BY City ASC";
 		$warehouses = mysqli_query($connection, $warehouseQuery) or die("Database query failed.");
