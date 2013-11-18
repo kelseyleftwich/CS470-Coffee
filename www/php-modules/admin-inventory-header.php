@@ -2,8 +2,8 @@
 	<th>sku</th>
 	<th>coffee</th>
 	<th>nation</th>
-	<th>weight</th>
-	<th>expiration</th>
+	<th>weight (lb)</th>
+	<th>expiration (YYYY-MM-DD)</th>
 	<th>warehouse</th>
-	<th>price</th>
+	<th>price per lb</th>
 </tr>
