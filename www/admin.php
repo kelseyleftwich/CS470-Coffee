@@ -33,11 +33,10 @@
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name, Country.Region, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Warehouse.City, Coffee.Price " . 
-			"FROM Coffee " . 
-			"INNER JOIN Country ON Coffee.Country = Country.Name " .
-			"INNER JOIN Warehouse ON Coffee.Warehouse = Warehouse.ID " .
-			"ORDER BY Country.Region, Coffee.Name ASC";
+		$coffeeQuery = 
+			"SELECT Coffee.SKU, Coffee.Name, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Coffee.Price, Coffee.Warehouse, Warehouse.City " .
+			"FROM Coffee INNER JOIN Warehouse " .
+			"ON Coffee.Warehouse = Warehouse.ID";
 		$coffees = mysqli_query($connection, $coffeeQuery) or die("Database query failed.");
 		
 		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
@@ -55,7 +54,7 @@
 		<div id="body">
 			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 				<table>
-					<?php
+					<?php/*
 						$region = "";
 						while ($row = mysqli_fetch_assoc($coffees)) {
 							$nextRegion = $row['Country.Region'];
@@ -76,7 +75,7 @@
 							echo '	<td>' . $row['Coffee.Price'] . '</td>';
 							echo '	<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['Coffee.SKU'] . '">edit</a></td>';
 							echo '</tr>';
-						}
+						}*/
 					?>
 
 					<tr>
@@ -129,6 +128,29 @@
 				</div>
 			</form>
 		</div>
+		<table>
+		    <tr>
+                <th class="top_label" colspan="4">Current Inventory</th>
+            </tr>
+            <?php 
+						include('php-modules/admin-inventory-header.php'); 
+            ?>
+            <?php
+                while ($row = mysqli_fetch_assoc($coffees)) {
+                    echo '<tr>' . 
+                        '<td>' . $row['SKU'] . '</td>' .
+                        '<td>' . $row['Name'] . '</td>' .
+                        '<td>' . $row['Country'] . '</td>' . 
+                        '<td>' . $row['Weight'] . '</td>' . 
+                        '<td>' . $row['ExpDate'] . '</td>' . 
+                        '<td>' . strval($row['City']) . '</td>' . 
+                        '<td>' . $row['Price'] . '</td>' . 
+                        '<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['SKU'] . '">edit</a></td>' .
+                        '</tr>';
+                    }
+                    ?>
+		</table>
+		
 	</body>
 	
 	<?php
