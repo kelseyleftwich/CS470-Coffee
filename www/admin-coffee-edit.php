@@ -5,8 +5,11 @@
 		<?php require_once('php-modules/head-shared-elements.php'); ?>
 	</head>
 	<body>
+
+	<?php
 		
-	<?php 
+		var_dump($_REQUEST);
+		
 		require_once('php-modules/db-connect.php');
 		
 		// arrival by 'EDIT' link w/ GET information
@@ -17,6 +20,18 @@
 					"WHERE SKU = '" . mysql_escape_string($_GET['sku']) . "'";
 				$getCoffee = mysqli_query($connection, $getQuery) or die("Database query failed.");
 		} elseif (isset($_POST['sku'])){
+				
+				$updateQuery = "Update Coffee " . 
+					"SET SKU = '" . mysql_escape_string($_POST['sku']) .
+					"', Name = '" . mysql_escape_string($_POST['name']) .
+					"', ExpDate = '" . mysql_escape_string($_POST['expdate']) .
+					"', Weight = '" . mysql_escape_string($_POST['weight']) .
+					"', Price='" . mysql_escape_string($_POST['price']) .
+					"', Country='" . mysql_escape_string($_POST['country']) .
+					"', Warehouse = '" . mysql_escape_string($_POST['warehouse']) .
+					"' " . 
+					"WHERE SKU = '" . mysql_escape_string($_POST['sku']) . "'";
+				$updateCoffee = mysqli_query($connection, $updateQuery) or die("Database query failed.");
 				
 				$getQuery = "SELECT Coffee.SKU, Coffee.Name, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Coffee.Price, Coffee.Warehouse " . 
 					"FROM Coffee " . 
@@ -69,6 +84,7 @@
 				    echo
 							'</select>
 						</td>' .
+				        '<td><input type="text" name="weight" value="' . $row['Weight'] . '"></td>' .
 				        '<td><input type="text" name="price" value="' . $row['Price'] . '"></td>' .
 				        '</tr>';
                 }
