@@ -87,7 +87,7 @@ table {
 	width: 80%;
 	margin: 0 auto;
 	background-color: #f5f1ce;
-	padding: 0 15px 15px 15px;
+	padding: 15px 15px 15px 15px;
 }
 
 table a, table a:visited {
@@ -181,4 +181,12 @@ td {
 	color: #f5f1ce;
 	background: url('img/add-to-cart-btn-down.png') no-repeat center;
 	cursor: pointer;
+}
+
+.body-par {
+    display: block;
+    width: 80%;
+	margin: 0 auto;
+	background-color: #f5f1ce;
+	padding: 0 15px 15px 15px;
 }

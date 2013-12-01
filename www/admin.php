@@ -140,4 +140,17 @@
 		mysqli_free_result($warehouses);
 		require_once('php-modules/db-close.php');
 	?>
+	
+<script type="text/javascript">
+    function checkQuantity(desiredQty, availableQty)
+        {
+            if(desiredQty > availableQty) {
+                alert("Quantity not available");
+                return false;
+            } else {
+                return true;
+            }
+        }
+</script>
+
 </html>
