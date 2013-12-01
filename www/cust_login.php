@@ -1,51 +1,52 @@
-
+<?php require_once("php-modules/session.php"); ?>
 <?php require_once("php-modules/functions.php"); ?>
-
-<!DOCTYPE html>
+<?php 
+    require_once('php-modules/db-connect.php');
+    
+    // check if form was submitted and if all fields have values
+    $invalid = false;
+    if (isset($_POST['submit'])) {
+        foreach ($_POST as $value) {
+            if (!isset($value)) {
+                $invalid = true;
+            }
+        }
+        
+        //login system tutorial: PHP with MySQL Essential Training by Kevin Skoglung http://www.lynda.com/MySQL-tutorials/Creating-login-system/119003/137056-4.html
+        
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        
+        $found_customer = attempt_login($email, $password, $connection);
+        
+        if($found_customer) {
+            //Success
+            $_SESSION["customer_email"] = $found_customer["Email"];
+            redirect_to("index.php");
+            //echo '<h1>it worked</h1>';
+        } else {
+            //Failure
+            $_SESSION["message"] = "Email/password not found.";
+        }
+    }
+    
+    // db queries needed to populate table rows & form input drop-down menus
+    $customerQuery = "SELECT * FROM Customer";
+        
+    $customers = mysqli_query($connection, $customerQuery) or die("Database query failed.");
+		
+?>
+	
+	<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<title>Login</title>
-		<?php //require_once('php-modules/head-shared-elements.php'); ?>
+		<?php require_once('php-modules/head-shared-elements.php'); ?>
 	</head>
-	
-	<?php 
-		require_once('php-modules/db-connect.php');
-		
-		// check if form was submitted and if all fields have values
-		$invalid = false;
-		if (isset($_POST['submit'])) {
-			foreach ($_POST as $value) {
-				if (!isset($value)) {
-					$invalid = true;
-				}
-			}
-			
-			//login system tutorial: PHP with MySQL Essential Training by Kevin Skoglung http://www.lynda.com/MySQL-tutorials/Creating-login-system/119003/137056-4.html
-			
-			$email = $_POST["email"];
-			$password = $_POST["password"];
-			
-			$found_customer = attempt_login($email, $password);
-			
-			if($found_customer) {
-			    //Success
-			    redirect_to("index.php");
-			} else {
-			    //Failure
-			    $_SESSION["message"] = "Email/password not found.";
-			}
-		}
-		
-		// db queries needed to populate table rows & form input drop-down menus
-		$customerQuery = "SELECT * FROM Customer";
-			
-		$customers = mysqli_query($connection, $customerQuery) or die("Database query failed.");
-		
-	?>
 	
 	<body>
 		<header>
-			<?php require_once('php-modules/admin-nav.php'); ?>
+			<?php //require_once('php-modules/admin-nav.php'); ?>
 		</header>
 		
 		<div id="body">
@@ -56,7 +57,7 @@
 						<th class="top_label" colspan="5">New Customer</th>
 					</tr>
 					<?php 
-						include('php-modules/admin-customer-header.php'); 
+						include('php-modules/customer-login-header.php'); 
 						// sticky form fields below
 					?>
 					<tr>
