@@ -1,3 +1,6 @@
+
+<?php require_once("php-modules/functions.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -16,18 +19,16 @@
 					$invalid = true;
 				}
 			}
-			$sku = $_POST['sku'];
-			$name = $_POST['name'];
-			$country = $_POST['country'];
-			$weight = $_POST['weight'];
-			$expiration = $_POST['expiration'];
-			$warehouse = $_POST['warehouse'];
-			$price = $_POST['price'];
+			$fname = $_POST['fname'];
+			$lname = $_POST['lname'];
+			$email = $_POST['email'];
+			
+			$hashpass = password_encrypt($_POST['password']);
 			
 			// add to database if all fields have a value
 			if (!$invalid) {
-				$newCoffeeQuery = "INSERT INTO Coffee (SKU, Name, Country, Weight, ExpDate, Warehouse, Price) " .
-					"VALUES ('$sku','$name', '$country', '$weight', '$expiration', '$warehouse', '$price')";
+				$newCoffeeQuery = "INSERT INTO Customer (Email, FirstName, LastName, HashedPassword) " .
+					"VALUES ('$email','$fname', '$lname', '$hashpass')";
 				$newCoffee = mysqli_query($connection, $newCoffeeQuery) or die("Database query failed.");
 			}
 		}
@@ -52,7 +53,7 @@
 						<th class="top_label" colspan="5">New Customer</th>
 					</tr>
 					<?php 
-						include('php-modules/admin-inventory-header.php'); 
+						include('php-modules/admin-customer-header.php'); 
 						// sticky form fields below
 					?>
 					<tr>
@@ -75,12 +76,13 @@
 				</div>
 			</form>
 		</div>
+		<div style="clear: both;"></div>
 		<table>
 		    <tr>
                 <th class="top_label" colspan="4">Current Customers</th>
             </tr>
             <?php 
-						include('php-modules/admin-inventory-header.php'); 
+						include('php-modules/admin-customer-header.php'); 
             ?>
             <?php
                 while ($row = mysqli_fetch_assoc($customers)) {
