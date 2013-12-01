@@ -28,7 +28,7 @@
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$countryQuery = "SELECT Name, Region FROM Country ORDER BY Region, Name ASC";
+		$countryQuery = "SELECT * FROM Country ORDER BY Region, Name ASC";
 		$countries = mysqli_query($connection, $countryQuery) or die("Database query failed (STD1).");
 		
 		$regionQuery = "SELECT Name FROM Region ORDER BY Name ASC";
@@ -71,7 +71,7 @@
 				</table>
 				<div id="submit">
 					<div id="submitWrapper">
-						<input type="submit" value="add nation" name="submit">
+						<input type="submit" value="add country" name="submit">
 					</div>
 				</div>
 			</form>
@@ -94,7 +94,7 @@
 					}
 				    echo '<tr>';
 					echo '	<td colspan="2">' . $row['Name'] . '</td>';
-					echo '	<td class="edit"><a href="admin-country-edit.php?name=' . $row['Name'] . '">edit</a></td>';
+					echo '	<td class="edit"><a href="admin-country-edit.php?id=' . $row['ID'] . '">edit</a></td>';
 					echo '</tr>';
 				}
 			?>

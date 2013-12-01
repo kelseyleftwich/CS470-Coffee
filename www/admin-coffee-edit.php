@@ -41,7 +41,7 @@
 			"FROM Coffee";
 		$getCoffees = mysqli_query($connection, $coffeeQuery) or die("Database query failed.");
 		
-		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
+		$countryQuery = "SELECT ID, Name FROM Country ORDER BY Name ASC";
 		$countries = mysqli_query($connection, $countryQuery) or die("Database query failed.");
 		
 		$warehouseQuery = "SELECT ID, City From Warehouse ORDER BY City ASC";
@@ -69,10 +69,10 @@
 						echo '	<td><input type="text" name="name" value="' . $row['Name'] . '"></td>';
 						echo '	<td><select name="country">';
 						while ($countryrow = mysqli_fetch_assoc($countries)) {
-							if ($countryrow['Name'] == $row['Country']) {
-								echo '		<option value="' . $countryrow['Name'] . '" selected="selected">' . $countryrow['Name'] . '</option>';
+							if ($countryrow['ID'] == $row['Country']) {
+								echo '		<option value="' . $countryrow['ID'] . '" selected="selected">' . $countryrow['Name'] . '</option>';
 							} else {
-								echo '		<option value="' . $countryrow['Name'] . '">' . $countryrow['Name'] . '</option>';
+								echo '		<option value="' . $countryrow['ID'] . '">' . $countryrow['Name'] . '</option>';
 							}
 						}
 						echo '	</select></td>';

@@ -33,14 +33,15 @@
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Coffee.Price, Warehouse.City, Country.Region " . 
+		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name AS coffeeName, Coffee.Weight, Coffee.ExpDate, Coffee.Price, " .
+			"Warehouse.City, Country.Name AS countryName, Country.Region " . 
 			"FROM Coffee " . 
-			"INNER JOIN Country ON Coffee.Country = Country.Name " .
+			"INNER JOIN Country ON Coffee.Country = Country.ID " .
 			"INNER JOIN Warehouse ON Coffee.Warehouse = Warehouse.ID " .
 			"ORDER BY Country.Region, Coffee.Name ASC";
 		$coffees = mysqli_query($connection, $coffeeQuery) or die("Database query failed.");
 		
-		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
+		$countryQuery = "SELECT ID, Name FROM Country ORDER BY Name ASC";
 		$countries = mysqli_query($connection, $countryQuery) or die("Database query failed.");
 		
 		$warehouseQuery = "SELECT ID, City From Warehouse ORDER BY City ASC";
@@ -69,7 +70,7 @@
 							<select name="country">
 								<?php
 									while ($row = mysqli_fetch_assoc($countries)) {
-										echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
+										echo '<option value="' . $row['ID'] . '">' . $row['Name'] . '</option>';
 									}	
 								?>
 							</select>
@@ -101,6 +102,7 @@
 				</div>
 			</form>
 		</div>
+		
 		<table>
 			<tr>
                 <th class="top_label" colspan="5">Existing Inventory</th>
@@ -118,8 +120,8 @@
 					}
 					echo '<tr>';
 					echo '	<td>' . $row['SKU'] . '</td>';
-					echo '	<td>' . $row['Name'] . '</td>';
-					echo '	<td>' . $row['Country'] . '</td>';
+					echo '	<td>' . $row['coffeeName'] . '</td>';
+					echo '	<td>' . $row['countryName'] . '</td>';
 					echo '	<td>' . $row['Weight'] . '</td>';
 					echo '	<td>' . $row['ExpDate'] . '</td>';
 					echo '	<td>' . $row['City'] . '</td>';
