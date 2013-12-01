@@ -102,6 +102,9 @@
 			</form>
 		</div>
 		<table>
+			<tr>
+                <th class="top_label" colspan="5">Existing Inventory</th>
+            </tr>
 			<?php
 				$region = "";
 				while ($row = mysqli_fetch_assoc($coffees)) {

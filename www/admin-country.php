@@ -40,27 +40,9 @@
 			<?php require_once('php-modules/admin-nav.php'); ?>
 		</header>
 		
-		<div id="body">
+		<div id="formWrapper">
 			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 				<table>
-					<?php
-						$region = "";
-						while ($row = mysqli_fetch_assoc($countries)) {
-							$nextRegion = $row['Region'];
-							if ($region != $nextRegion) {
-								echo '<tr>';
-								echo '	<th class="top_label" colspan="3">' . $row['Region'] . '</th>';
-								echo '</tr>';
-								include('php-modules/admin-country-header.php');
-								$region = $nextRegion;
-							}
-							echo '<tr>';
-							echo '	<td colspan="2">' . $row['Name'] . '</td>';
-							echo '	<td class="edit"><a href="admin-country-edit.php?name=' . $row['Name'] . '">edit</a></td>';
-							echo '</tr>';
-						}
-					?>
-				
 					<tr>
 						<th class="top_label" colspan="3">New Country</th>
 					</tr>
@@ -75,8 +57,6 @@
 								<?php
 									while ($row = mysqli_fetch_assoc($regions)) {
 										echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
-										/* echo '<option value="' . $row['Name'] . '"' . ($invalid && !empty($region) && $region == $row['Name']) ? ' selected' : '' . 
-											'>' . $row['Name'] . '</option>'; */
 									}	
 								?>
 							</select>
@@ -96,6 +76,29 @@
 				</div>
 			</form>
 		</div>
+		
+		<table>
+			<tr>
+				<th class="top_label" colspan="3">Existing Countries</th>
+			</tr>
+			<?php
+				$region = "";
+                while ($row = mysqli_fetch_assoc($countries)) {
+					$nextRegion = $row['Region'];
+					if ($region != $nextRegion) {
+						echo '<tr>';
+						echo '	<th class="top_label" colspan="3">' . $row['Region'] . '</th>';
+						echo '</tr>';
+						include('php-modules/admin-country-header.php');
+						$region = $nextRegion;
+					}
+				    echo '<tr>';
+					echo '	<td colspan="2">' . $row['Name'] . '</td>';
+					echo '	<td class="edit"><a href="admin-country-edit.php?name=' . $row['Name'] . '">edit</a></td>';
+					echo '</tr>';
+				}
+			?>
+		</table>
 	</body>
 	
 	<?php
