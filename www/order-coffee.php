@@ -72,7 +72,7 @@
 	
 	<body>
 		<header>
-			<?php //require_once('php-modules/admin-nav.php'); ?>
+			<?php require_once('php-modules/customer-nav.php'); ?>
 		</header>
 		
 		<?php //if(isset($order_id)) { echo $order_id; } ?>
@@ -99,6 +99,10 @@
                         echo '</tr>';
                     }
                 ?>
+            </table>
+            
+            <table>
+            <tr><td><a href="customer-orders.php">Review your orders</a></td></tr>
             </table>
         </div>
 	</body>

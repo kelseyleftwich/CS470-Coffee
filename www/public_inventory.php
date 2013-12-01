@@ -30,7 +30,7 @@
 	
 	<body>
 		<header>
-			<?php //require_once('php-modules/admin-nav.php'); ?>
+			<?php require_once('php-modules/customer-nav.php'); ?>
 		</header>
 		
 		<table>
