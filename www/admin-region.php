@@ -36,24 +36,9 @@
 			<?php require_once('php-modules/admin-nav.php'); ?>
 		</header>
 		
-		<div id="body">
+		<div id="formWrapper">
 			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 				<table>
-					<tr>
-						<th class="top_label" colspan="2">Regions</th>
-					</tr>
-					<tr class="tbl_label">
-						<th>name</th>
-					</tr>
-					<?php
-						while ($row = mysqli_fetch_assoc($regions)) {
-							echo '<tr>';
-							echo '	<td>' . $row['Name'] . '</td>';
-							echo '	<td class="edit"><a href="admin-region-edit.php?name=' . $row['Name'] . '">edit</a></td>';
-							echo '</tr>';
-						}
-					?>
-	
 					<tr>
 						<th class="top_label" colspan="2">New Region</th>
 					</tr>
@@ -70,6 +55,7 @@
 						}
 					?>
 				</table>
+				
 				<div id="submit">
 					<div id="submitWrapper">
 						<input type="submit" value="add region" name="submit">
@@ -77,6 +63,23 @@
 				</div>
 			</form>
 		</div>
+				
+		<table>
+			<tr>
+				<th class="top_label" colspan="2">Regions</th>
+			</tr>
+			<tr class="tbl_label">
+				<th>name</th>
+			</tr>
+			<?php
+				while ($row = mysqli_fetch_assoc($regions)) {
+					echo '<tr>';
+					echo '	<td>' . $row['Name'] . '</td>';
+					echo '	<td class="edit"><a href="admin-region-edit.php?name=' . $row['Name'] . '">edit</a></td>';
+					echo '</tr>';
+				}
+			?>
+		</table>
 	</body>
 	
 	<?php
