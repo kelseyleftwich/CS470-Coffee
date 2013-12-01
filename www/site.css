@@ -4,8 +4,8 @@ body {
 	font-family: georgia, serif;
 }
 
-#body {
-	margin-bottom: 75px;
+#formWrapper {
+	margin-bottom: 100px;
 }
 
 header {

@@ -33,10 +33,11 @@
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$coffeeQuery = 
-			"SELECT Coffee.SKU, Coffee.Name, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Coffee.Price, Coffee.Warehouse, Warehouse.City " .
-			"FROM Coffee INNER JOIN Warehouse " .
-			"ON Coffee.Warehouse = Warehouse.ID";
+		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Coffee.Price, Warehouse.City, Country.Region " . 
+			"FROM Coffee " . 
+			"INNER JOIN Country ON Coffee.Country = Country.Name " .
+			"INNER JOIN Warehouse ON Coffee.Warehouse = Warehouse.ID " .
+			"ORDER BY Country.Region, Coffee.Name ASC";
 		$coffees = mysqli_query($connection, $coffeeQuery) or die("Database query failed.");
 		
 		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
@@ -51,33 +52,9 @@
 			<?php require_once('php-modules/admin-nav.php'); ?>
 		</header>
 		
-		<div id="body">
+		<div id="formWrapper">
 			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 				<table>
-					<?php/*
-						$region = "";
-						while ($row = mysqli_fetch_assoc($coffees)) {
-							$nextRegion = $row['Country.Region'];
-							if ($region != $nextRegion) {
-								echo '<tr>';
-								echo '	<th class="top_label" colspan="5">' . $row['Country.Region'] . '</th>';
-								echo '</tr>';
-								include('php-modules/admin-inventory-header.php');
-								$region = $nextRegion;
-							}
-							echo '<tr>';
-							echo '	<td>' . $row['Coffee.SKU'] . '</td>';
-							echo '	<td>' . $row['Coffee.Name'] . '</td>';
-							echo '	<td>' . $row['Nation.Name'] . '</td>';
-							echo '	<td>' . $row['Coffee.Weight'] . '</td>';
-							echo '	<td>' . $row['Coffee.ExpDate'] . '</td>';
-							echo '	<td>' . $row['Warehouse.City'] . '</td>';
-							echo '	<td>' . $row['Coffee.Price'] . '</td>';
-							echo '	<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['Coffee.SKU'] . '">edit</a></td>';
-							echo '</tr>';
-						}*/
-					?>
-
 					<tr>
 						<th class="top_label" colspan="5">New Inventory</th>
 					</tr>
@@ -93,8 +70,6 @@
 								<?php
 									while ($row = mysqli_fetch_assoc($countries)) {
 										echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
-										/* echo '<option value="' . $row['Name'] . '"' . ($invalid && !empty($country) && $country == $row['Name']) ? ' selected' : '' . 
-											'>' . $row['Name'] . '</option>'; */
 									}	
 								?>
 							</select>
@@ -106,8 +81,6 @@
 								<?php
 									while ($row = mysqli_fetch_assoc($warehouses)) {
 										echo '<option value="' . $row['ID'] . '">' . $row['City'] . '</option>';
-										/* echo '<option value="' . $row['ID'] . '"' . ($invalid && !empty($warehouse) && $warehouse == $row['ID']) ? 'selected' : '' . 
-											'>' . $row['City'] . '</option>'; */
 									}
 								?>
 							</select>
@@ -129,30 +102,32 @@
 			</form>
 		</div>
 		<table>
-		    <tr>
-                <th class="top_label" colspan="4">Current Inventory</th>
-            </tr>
-            <?php 
-						include('php-modules/admin-inventory-header.php'); 
-            ?>
-            <?php
-                while ($row = mysqli_fetch_assoc($coffees)) {
-                    echo '<tr>' . 
-                        '<td>' . $row['SKU'] . '</td>' .
-                        '<td>' . $row['Name'] . '</td>' .
-                        '<td>' . $row['Country'] . '</td>' . 
-                        '<td>' . $row['Weight'] . '</td>' . 
-                        '<td>' . $row['ExpDate'] . '</td>' . 
-                        '<td>' . strval($row['City']) . '</td>' . 
-                        '<td>' . $row['Price'] . '</td>' . 
-                        '<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['SKU'] . '">edit</a></td>' .
-                        '</tr>';
-                    }
-                    ?>
+			<?php
+				$region = "";
+				while ($row = mysqli_fetch_assoc($coffees)) {
+					$nextRegion = $row['Region'];
+					if ($region != $nextRegion) {
+						echo '<tr>';
+						echo '	<th class="top_label" colspan="5">' . $row['Region'] . '</th>';
+						echo '</tr>';
+						include('php-modules/admin-inventory-header.php');
+						$region = $nextRegion;
+					}
+					echo '<tr>';
+					echo '	<td>' . $row['SKU'] . '</td>';
+					echo '	<td>' . $row['Name'] . '</td>';
+					echo '	<td>' . $row['Country'] . '</td>';
+					echo '	<td>' . $row['Weight'] . '</td>';
+					echo '	<td>' . $row['ExpDate'] . '</td>';
+					echo '	<td>' . $row['City'] . '</td>';
+					echo '	<td>' . $row['Price'] . '</td>';
+					echo '	<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['SKU'] . '">edit</a></td>';
+					echo '</tr>';
+				}
+			?>
 		</table>
-		
 	</body>
-	
+
 	<?php
 		// clean-up
 		mysqli_free_result($coffees);
