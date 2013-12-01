@@ -38,7 +38,7 @@
 			<?php require_once('php-modules/admin-nav.php'); ?>
 		</header>
 		
-		<div id="body">
+		<div id="formWrapper">
 			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 				<table>
 					<tr>
@@ -68,21 +68,23 @@
 				</div>
 			</form>
 		</div>
+		
 		<table>
             <tr>
                 <th class="top_label" colspan="4">Existing Warehouses</th>
             </tr>
-		    <?php include('php-modules/admin-warehouse-header.php'); ?>
-		    <?php
+		    <?php 
+				include('php-modules/admin-warehouse-header.php');
                 while ($row = mysqli_fetch_assoc($warehouses)) {
-				    echo '<tr>' . 
-				        '<td>' . $row['Street'] . '</td>' .
-				        '<td>' . $row['City'] . '</td>' .
-				        '<td>' . $row['State'] . '</td>' .
-				        '<td>' . $row['Zip'] . '</td>' . 
-				    '</tr>';
+				    echo '<tr>';
+				    echo '	<td>' . $row['Street'] . '</td>';
+				    echo '	<td>' . $row['City'] . '</td>';
+				    echo '	<td>' . $row['State'] . '</td>';
+				    echo '	<td>' . $row['Zip'] . '</td>';
+					echo '	<td class="edit"><a href="admin-warehouse-edit.php?id=' . $row['ID'] . '">edit</a></td>';
+				    echo '</tr>';
 				}
-				?>
+			?>
 		</table>
 	</body>
 	
