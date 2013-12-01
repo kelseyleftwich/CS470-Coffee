@@ -1,6 +1,7 @@
 <?php require_once("php-modules/session.php"); ?>
 <?php require_once("php-modules/functions.php"); ?>
-<?php
+<?php 
+		confirm_logged_in();
 		
 		require_once('php-modules/db-connect.php');
 		
@@ -42,7 +43,7 @@
 						echo '<tr>';
 						echo '	<th class="top_label" colspan="5">' . $row['Region'] . '</th>';
 						echo '</tr>';
-						include('php-modules/customer-inventory-header.php');
+						include('php-modules/admin-inventory-header.php');
 						$region = $nextRegion;
 					}
 					echo '<tr>';
@@ -53,9 +54,7 @@
 					echo '	<td>' . $row['ExpDate'] . '</td>';
 					echo '	<td>' . $row['City'] . '</td>';
 					echo '	<td>' . $row['Price'] . '</td>';
-					echo '  <td><form action="order-coffee.php"><input type="text" name="quantity" placeholder="Qty in lbs" required>';
-					echo '  <input type="hidden" name="sku" value="' .  $row['SKU'] . '">';
-					echo '  <input type="submit" value="Add"></form></td>';
+					
 					echo '</tr>';
 				}
 			?>
