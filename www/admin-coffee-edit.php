@@ -88,7 +88,7 @@
 						}
 						echo '	</select></td>';
 						echo '	<td><input type="text" name="price" value="' . $row['Price'] . '"></td>';
-						'</tr>';
+						echo '</tr>';
 
 						// feedback indicating missing data for new coffee inventory
 						if ($invalid) {
