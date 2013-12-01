@@ -22,7 +22,7 @@
         if($found_customer) {
             //Success
             $_SESSION["customer_email"] = $found_customer["Email"];
-            redirect_to("index.php");
+            redirect_to("order-coffee.php");
             //echo '<h1>it worked</h1>';
         } else {
             //Failure
