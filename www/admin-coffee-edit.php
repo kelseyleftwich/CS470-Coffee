@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Coffee Stock -- Inventory</title>
+		<title>Coffee Stock -- Inventory Edit</title>
 		<?php require_once('php-modules/head-shared-elements.php'); ?>
 	</head>
 	<body>
 
 	<?php
-		
-		var_dump($_REQUEST);
-		
 		require_once('php-modules/db-connect.php');
 		
 		// arrival by 'EDIT' link w/ GET information
@@ -55,56 +52,57 @@
 		<header>
 			<?php require_once('php-modules/admin-nav.php'); ?>
 		</header>
-		<div id="body">
 		
-		<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-		<table>
-		    <tr>
-		        <th class="top_label" colspan="4">Edit Coffee</th>
-            </tr>
-		    
-		    
-		    <?php
-                while ($row = mysqli_fetch_assoc($getCoffee)) {
-                    
-				    echo '<tr>' .
-				        '<td><input type="text" name="sku" value="' . $row['SKU'] . '"></td>' .
-				        '<td><input type="text" name="name" value="' . $row['Name'] . '"></td>' .
-				        '<td><input type="text" name="country" value="' . $row['Country'] . '"></td>' .
-				        '<td><input type="text" name="expdate" value="' . $row['ExpDate'] . '"></td>' .
-				        '<td>
-							<select name="warehouse">';
-									while ($warerow = mysqli_fetch_assoc($warehouses)) {
-										if($warerow['ID'] == $row['Warehouse']){
-										    echo '<option value="' . $warerow['ID'] . '" selected="selected">' . $warerow['City'] . '</option>';
-										} else {
-										    echo '<option value="' . $warerow['ID'] . '">' . $warerow['City'] . '</option>';
-                                        }
-									}
-				    echo
-							'</select>
-						</td>' .
-				        '<td><input type="text" name="weight" value="' . $row['Weight'] . '"></td>' .
-				        '<td><input type="text" name="price" value="' . $row['Price'] . '"></td>' .
-				        '</tr>';
-                }
-            ?>
-            <?php
-            // feedback indicating missing data for new coffee inventory
-			    if ($invalid) {
-				    echo 'ALL FIELDS REQUIRED';
-				}
-            ?>
-			    </table>
-            <div id="submit">
-				<div id="submitWrapper">
-					<input type="submit" value="Save Changes" name="submit">
-					</div>
-				</div>
-            </form>
-		    
+		<div id="formWrapper">
+			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+				<table>
+					<tr>
+						<th class="top_label" colspan="4">Edit Coffee</th>
+					</tr>
+					
+					<?php
+						include('php-modules/admin-inventory-header.php');
+						$row = mysqli_fetch_assoc($getCoffee);
+							
+						echo '<tr>';
+						echo '	<td><input type="text" name="sku" value="' . $row['SKU'] . '"></td>';
+						echo '	<td><input type="text" name="name" value="' . $row['Name'] . '"></td>';
+						echo '	<td><select name="country">';
+						while ($countryrow = mysqli_fetch_assoc($countries)) {
+							if ($countryrow['Name'] == $row['Country']) {
+								echo '		<option value="' . $countryrow['Name'] . '" selected="selected">' . $countryrow['Name'] . '</option>';
+							} else {
+								echo '		<option value="' . $countryrow['Name'] . '">' . $countryrow['Name'] . '</option>';
+							}
+						}
+						echo '	</select></td>';
+						echo '	<td><input type="text" name="weight" value="' . $row['Weight'] . '"></td>';
+						echo '	<td><input type="text" name="expdate" value="' . $row['ExpDate'] . '"></td>';
+						echo '	<td><select name="warehouse">';
+						while ($warerow = mysqli_fetch_assoc($warehouses)) {
+							if ($warerow['ID'] == $row['Warehouse']) {
+								echo '		<option value="' . $warerow['ID'] . '" selected="selected">' . $warerow['City'] . '</option>';
+							} else {
+								echo '		<option value="' . $warerow['ID'] . '">' . $warerow['City'] . '</option>';
+							}
+						}
+						echo '	</select></td>';
+						echo '	<td><input type="text" name="price" value="' . $row['Price'] . '"></td>';
+						'</tr>';
 
-		
+						// feedback indicating missing data for new coffee inventory
+						if ($invalid) {
+							echo 'ALL FIELDS REQUIRED';
+						}
+					?>
+				</table>
+				
+				<div id="submit">
+					<div id="submitWrapper">
+						<input type="submit" value="Save Changes" name="submit">
+						</div>
+					</div>
+			</form>
 		</div>
 	</body>
 </html>
