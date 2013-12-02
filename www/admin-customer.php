@@ -82,7 +82,7 @@
                 <th class="top_label" colspan="4">Current Customers</th>
             </tr>
             <?php 
-						include('php-modules/admin-customer-header2.php'); 
+				include('php-modules/admin-customer-header2.php'); 
             ?>
             <?php
                 while ($row = mysqli_fetch_assoc($customers)) {
