@@ -45,7 +45,7 @@
 			<?php require_once('php-modules/admin-nav.php'); ?>
 		</header>
 		
-		<div id="body">
+		<div id="formWrapper">
 			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 				<table>
 
@@ -76,7 +76,7 @@
 				</div>
 			</form>
 		</div>
-		<div style="clear: both;"></div>
+
 		<table>
 		    <tr>
                 <th class="top_label" colspan="4">Current Customers</th>
