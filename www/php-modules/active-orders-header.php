@@ -10,5 +10,7 @@
 	<th>expiration (YYYY-MM-DD)</th>
 	<th>warehouse</th>
 	<th>price per lb</th>
+	<th>total price</th>
+
 
 </tr>

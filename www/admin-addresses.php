@@ -34,7 +34,9 @@
 		}
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$customerQuery = "SELECT * FROM Customer";
+		$customerQuery = "SELECT Customer_Address.Address_Type, Customer_Address.Street, Customer_Address.City, Customer_Address.State, Customer_Address.Zip, Customer.FirstName, Customer.LastName, Customer.Email FROM Customer_Address ".
+			"INNER JOIN Customer ON Customer_Address.Customer_Email = Customer.Email " . 
+			"ORDER BY Customer.LastName, Customer.Email ASC";
 			
 		$customers = mysqli_query($connection, $customerQuery) or die("Database query failed.");
 		
@@ -44,45 +46,14 @@
 		<header>
 			<?php require_once('php-modules/admin-nav.php'); ?>
 		</header>
-		
-		<div id="body">
-			<form class="textfields" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-				<table>
 
-					<tr>
-						<th class="top_label" colspan="5">New Customer</th>
-					</tr>
-					<?php 
-						include('php-modules/admin-customer-header.php'); 
-						// sticky form fields below
-					?>
-					<tr>
-						<td><input type="text" name="fname" value="<?php if ($invalid && !empty($sku)) echo $fname; ?>"></td>
-						<td><input type="text" name="lname" value="<?php if ($invalid && !empty($name)) echo $lname; ?>"></td>
-						<td><input type="text" name="email" value="<?php if ($invalid && !empty($name)) echo $email; ?>"></td>
-						<td><input type="password" name="password" value="<?php if ($invalid && !empty($name)) echo $password; ?>"></td>
-					</tr>
-					<?php
-						// feedback indicating missing data for new coffee inventory
-						if ($invalid) {
-							echo 'ALL FIELDS REQUIRED';
-						}
-					?>
-				</table>
-				<div id="submit">
-					<div id="submitWrapper">
-						<input type="submit" value="add customer" name="submit">
-					</div>
-				</div>
-			</form>
-		</div>
 		<div style="clear: both;"></div>
 		<table>
 		    <tr>
-                <th class="top_label" colspan="4">Current Customers</th>
+                <th class="top_label" colspan="4">Current Addresses</th>
             </tr>
             <?php 
-						include('php-modules/admin-customer-header2.php'); 
+						include('php-modules/admin-customer-header3.php'); 
             ?>
             <?php
                 while ($row = mysqli_fetch_assoc($customers)) {
@@ -90,7 +61,11 @@
                         '<td>' . $row['FirstName'] . '</td>' .
                         '<td>' . $row['LastName'] . '</td>' .
                         '<td>' . $row['Email'] . '</td>' .  
-                        '<td class="edit"><a href="admin-coffee-edit.php?sku=' . $row['SKU'] . '">edit</a></td>' .
+                        '<td>' . $row['Address_Type'] . '</td>' .  
+                        '<td>' . $row['Street'] . '</td>' .  
+                        '<td>' . $row['City'] . '</td>' .  
+                        '<td>' . $row['State'] . '</td>' .  
+                        '<td>' . $row['Zip'] . '</td>' .  
                         '</tr>';
                     }
                     ?>

@@ -6,8 +6,8 @@
 		
 		require_once('php-modules/db-connect.php');
 		
-		if (isset($_POST["submit"])) {
-
+		if (isset($_GET["orderID"])) {
+            $orderID = $_GET["orderID"];
         }
 		
 		$countryQuery = "SELECT Name FROM Country ORDER BY Name ASC";
@@ -17,13 +17,14 @@
 		$warehouses = mysqli_query($connection, $warehouseQuery) or die("Database query failed.");
         
         		// db queries needed to get coffee and user
-		$ordersQuery = "SELECT Orders.ID, Orders.Status, Orders.Purchase_date, Orders.CustomerEmail, Order_Items.Coffee_SKU, Order_Items.Weight AS OrderWeight, Coffee.Name, Coffee.ExpDate, Coffee.Price, Country.Name AS CountryName, Warehouse.City  " . 
+		$ordersQuery = "SELECT Orders.ID, Orders.Status, Orders.Purchase_date, Orders.CustomerEmail, Order_Items.Coffee_SKU, Order_Items.Weight, Coffee.Name, Coffee.ExpDate, Coffee.Price, Country.Name AS CountryName, Warehouse.City  " . 
 			"FROM Orders " . 
 			"INNER JOIN Order_Items ON Orders.ID = Order_Items.Order_ID " .
 			"INNER JOIN Coffee ON Coffee.SKU = Order_Items.Coffee_SKU " .
 			"INNER JOIN Country ON Coffee.Country = Country.ID " .
 			"INNER JOIN Warehouse ON Coffee.Warehouse = Warehouse.ID " . 
-			"WHERE Orders.Status = 'open' " .
+			"WHERE Orders.CustomerEmail = '" . $customer_email . "' " . 
+			"AND Orders.ID = '" . $orderID . "'" .
 			"ORDER BY Orders.ID DESC";
 		$orders = mysqli_query($connection, $ordersQuery) or die("Database query failed.");
         
@@ -32,24 +33,18 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Active Orders</title>
+		<title>Your Orders</title>
 		<?php require_once('php-modules/head-shared-elements.php'); ?>
 	</head>
 	
 	<body>
 		<header>
-			<?php require_once('php-modules/admin-nav.php'); ?>
+			<?php require_once('php-modules/customer-nav.php'); ?>
 		</header>
 		
 		<?php //if(isset($order_id)) { echo $order_id; } ?>
 
         <div id="body">
-            <table>
-                <tr>
-                    <td><h3>Active Orders</h3></td>
-                </tr>
-            </table>
-            
             
             <table>
                 
@@ -62,13 +57,12 @@
                         $nextOrder = $row['ID'];
                         if ($order_id != $nextOrder) {
                             if($running_total != 0) {
-                                echo '<tr><td colspan="10"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
+                                echo '<tr><td colspan="9"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
                             }
-                            
                             echo '<tr>';
-                            echo '	<th class="top_label" colspan="5">Order No. ' . $row['ID'] . '</th>';
+                            echo '	<th class="top_label" colspan="2">Order No. ' . $row['ID'] . '</th>';
                             echo '</tr>';
-                            include('php-modules/active-orders-header.php');
+                            include('php-modules/customer-orders-header.php');
                             $order_id = $nextOrder;
                             $running_total = 0;
                         }
@@ -76,20 +70,28 @@
                         
                         echo '	<td>' . $row['Status'] . '</td>';
                         echo '	<td>' . $row['Purchase_date'] . '</td>';
-                        echo '	<td>' . $row['CustomerEmail'] . '</td>';
                         echo '	<td>' . $row['Coffee_SKU'] . '</td>';
                         echo '	<td>' . $row['Name'] . '</td>';
                         echo '	<td>' . $row['CountryName'] . '</td>';
-                        echo '	<td>' . $row['OrderWeight'] . '</td>';
+                        echo '	<td>' . $row['Weight'] . '</td>';
                         echo '	<td>' . $row['ExpDate'] . '</td>';
                         echo '	<td>' . $row['City'] . '</td>';
                         echo '	<td>' . $row['Price'] . '</td>';
-                        echo '	<td>' . ($row['Price']*$row['OrderWeight']) . '</td>';
-                        $running_total += ($row['Price']*$row['OrderWeight']);
+                        echo '	<td>' . ($row['Price']*$row['Weight']) . '</td>';
+                        $running_total += ($row['Price']*$row['Weight']);
                         echo '</tr>';
                     }
-                    echo '<tr><td colspan="10"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
+                    echo '<tr><td colspan="9"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
                 ?>
+            </table>
+            
+            <table>
+                <tr><form action="process-payment.php" method="post">
+                    <td>Credit Card Number: <input type="password" name="creditcard" /></td>
+                    <td>Amount: <input type="text" name="amount" value ="<?php echo $running_total; ?>"/></td>
+                    <input type="hidden" name="orderID" value="<?php echo $orderID; ?>">
+                    <td><input type="submit" name="submit" value="submit" /></td>
+                </form></tr>
             </table>
         </div>
 	</body>
