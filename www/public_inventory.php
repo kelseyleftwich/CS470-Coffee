@@ -6,7 +6,8 @@
 		
 		
 		// db queries needed to populate table rows & form input drop-down menus
-		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name, Coffee.Country, Coffee.Weight, Coffee.ExpDate, Coffee.Price, Warehouse.City, Country.Region " . 
+		$coffeeQuery = "SELECT Coffee.SKU, Coffee.Name AS coffeeName, Coffee.Weight, Coffee.ExpDate, Coffee.Price, " .
+			"Warehouse.City, Country.Name AS countryName, Country.Region " . 
 			"FROM Coffee " . 
 			"INNER JOIN Country ON Coffee.Country = Country.ID " .
 			"INNER JOIN Warehouse ON Coffee.Warehouse = Warehouse.ID " .
@@ -47,9 +48,8 @@
 						$region = $nextRegion;
 					}
 					echo '<tr>';
-					echo '	<td>' . $row['SKU'] . '</td>';
-					echo '	<td>' . $row['Name'] . '</td>';
-					echo '	<td>' . $row['Country'] . '</td>';
+					echo '	<td>' . $row['coffeeName'] . '</td>';
+					echo '	<td>' . $row['countryName'] . '</td>';
 					echo '	<td>' . $row['Weight'] . '</td>';
 					echo '	<td>' . $row['ExpDate'] . '</td>';
 					echo '	<td>' . $row['City'] . '</td>';

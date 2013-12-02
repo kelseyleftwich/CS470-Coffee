@@ -12,7 +12,7 @@
 		$invalid = false;
 		if (isset($_POST['submit'])) {
 			foreach ($_POST as $value) {
-				if (!isset($value)) {
+				if (empty($value)) {
 					$invalid = true;
 				}
 			}
@@ -70,7 +70,11 @@
 							<select name="country">
 								<?php
 									while ($row = mysqli_fetch_assoc($countries)) {
-										echo '<option value="' . $row['ID'] . '">' . $row['Name'] . '</option>';
+										if ($invalid && $row['ID'] == $country) {
+											echo '<option value="' . $row['ID'] . '" selected="selected">' . $row['Name'] . '</option>';
+										} else {
+											echo '<option value="' . $row['ID'] . '">' . $row['Name'] . '</option>';
+										}
 									}	
 								?>
 							</select>
@@ -81,7 +85,11 @@
 							<select name="warehouse">
 								<?php
 									while ($row = mysqli_fetch_assoc($warehouses)) {
-										echo '<option value="' . $row['ID'] . '">' . $row['City'] . '</option>';
+										if ($invalid && $row['ID'] == $warehouse) {
+											echo '<option value="' . $row['ID'] . '" selected="selected">' . $row['City'] . '</option>';
+										} else {
+											echo '<option value="' . $row['ID'] . '">' . $row['City'] . '</option>';
+										}
 									}
 								?>
 							</select>
@@ -89,9 +97,9 @@
 						<td><input type="text" name="price" value="<?php if ($invalid && !empty($price)) echo $price; ?>"></td>
 					</tr>
 					<?php
-						// feedback indicating missing data for new coffee inventory
+						// feedback indicating missing data
 						if ($invalid) {
-							echo 'ALL FIELDS REQUIRED';
+							echo '<tr><td id="error">ALL FIELDS REQUIRED</td></tr>';
 						}
 					?>
 				</table>
