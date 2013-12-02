@@ -190,3 +190,8 @@ td {
 	background-color: #f5f1ce;
 	padding: 0 15px 15px 15px;
 }
+
+#error {
+	border: medium none;
+    color: #BF2E1A;
+}
