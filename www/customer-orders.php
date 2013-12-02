@@ -50,16 +50,23 @@
                 <?php
                     
                     $order_id = "";
-                    
+                    $running_total = 0;
                     
                     while ($row = mysqli_fetch_assoc($orders)) {
                         $nextOrder = $row['ID'];
                         if ($order_id != $nextOrder) {
+                            if($running_total != 0) {
+                                echo '<tr><td colspan="9"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
+                            }
                             echo '<tr>';
-                            echo '	<th class="top_label" colspan="5">Order No. ' . $row['ID'] . '</th>';
+                            echo '	<th class="top_label" colspan="2">Order No. ' . $row['ID'] . '</th>';
+                            if($row['Status'] == 'open') {
+                                echo '<th class="top_label"><a href="pay-order.php?orderID=' . $row['ID'] . '">Pay Now</a></th>';
+                            }
                             echo '</tr>';
                             include('php-modules/customer-orders-header.php');
                             $order_id = $nextOrder;
+                            $running_total = 0;
                         }
                         echo '<tr>';
                         
@@ -72,8 +79,11 @@
                         echo '	<td>' . $row['ExpDate'] . '</td>';
                         echo '	<td>' . $row['City'] . '</td>';
                         echo '	<td>' . $row['Price'] . '</td>';
+                        echo '	<td>' . ($row['Price']*$row['Weight']) . '</td>';
+                        $running_total += ($row['Price']*$row['Weight']);
                         echo '</tr>';
                     }
+                    echo '<tr><td colspan="9"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
                 ?>
             </table>
         </div>

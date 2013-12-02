@@ -17,7 +17,7 @@
 		$warehouses = mysqli_query($connection, $warehouseQuery) or die("Database query failed.");
         
         		// db queries needed to get coffee and user
-		$ordersQuery = "SELECT Orders.ID, Orders.Status, Orders.Purchase_date, Orders.CustomerEmail, Order_Items.Coffee_SKU, Order_Items.Weight, Coffee.Name, Coffee.ExpDate, Coffee.Price, Country.Name AS CountryName, Warehouse.City  " . 
+		$ordersQuery = "SELECT Orders.ID, Orders.Status, Orders.Purchase_date, Orders.CustomerEmail, Orders.CreditCard, Order_Items.Coffee_SKU, Order_Items.Weight, Coffee.Name, Coffee.ExpDate, Coffee.Price, Country.Name AS CountryName, Warehouse.City  " . 
 			"FROM Orders " . 
 			"INNER JOIN Order_Items ON Orders.ID = Order_Items.Order_ID " .
 			"INNER JOIN Coffee ON Coffee.SKU = Order_Items.Coffee_SKU " .
@@ -56,21 +56,25 @@
                 <?php
                     
                     $order_id = "";
-                    
+                    $running_total = 0;
                     
                     while ($row = mysqli_fetch_assoc($orders)) {
                         $nextOrder = $row['ID'];
                         if ($order_id != $nextOrder) {
+                            if($running_total != 0) {
+                                echo '<tr><td colspan="10"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
+                            }
                             echo '<tr>';
                             echo '	<th class="top_label" colspan="5">Order No. ' . $row['ID'] . '</th>';
                             echo '</tr>';
-                            include('php-modules/active-orders-header.php');
+                            include('php-modules/closed-orders-header.php');
                             $order_id = $nextOrder;
+                            $running_total = 0;
                         }
                         echo '<tr>';
                         
-                        echo '	<td>' . $row['Status'] . '</td>';
-                        echo '	<td>' . $row['Purchase_date'] . '</td>';
+                        
+                        echo '	<td>' . date('M j Y', strtotime($row['Purchase_date'])) . '</td>';
                         echo '	<td>' . $row['CustomerEmail'] . '</td>';
                         echo '	<td>' . $row['Coffee_SKU'] . '</td>';
                         echo '	<td>' . $row['Name'] . '</td>';
@@ -79,8 +83,12 @@
                         echo '	<td>' . $row['ExpDate'] . '</td>';
                         echo '	<td>' . $row['City'] . '</td>';
                         echo '	<td>' . $row['Price'] . '</td>';
+                        echo '	<td>' . ($row['Price']*$row['Weight']) . '</td>';
+                        echo '	<td><small>xxxx xxxx xxxx </small>' . $row['CreditCard'] . '</td>';
+                        $running_total += ($row['Price']*$row['Weight']);
                         echo '</tr>';
                     }
+                    echo '<tr><td colspan="10"><b>Order Total</b></td><td>'.$running_total.'</td></tr>';
                 ?>
             </table>
         </div>

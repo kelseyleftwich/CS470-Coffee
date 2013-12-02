@@ -2,6 +2,7 @@
 	
     <th>Status</th>
     <th>Purchase Date</th>
+    <th>Customer Email</th>
     <th>SKU</th>
 	<th>coffee</th>
 	<th>Country</th>
@@ -10,5 +11,6 @@
 	<th>warehouse</th>
 	<th>price per lb</th>
 	<th>total price</th>
+	<th>credit card used</th>
 
 </tr>
